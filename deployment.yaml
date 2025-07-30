@@ -1,0 +1,30 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: patient-app
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: patient
+  template:
+    metadata:
+      labels:
+        app: patient
+    spec:
+      containers:
+        - name: patient-backend
+          image: patient-app:latest
+          ports:
+            - containerPort: 8000
+          env:
+            - name: DB_HOST
+              value: "db"
+            - name: DB_PORT
+              value: "5432"
+            - name: DB_USER
+              value: "postgres"
+            - name: DB_PASSWORD
+              value: "admin"
+            - name: DB_NAME
+              value: "patients"
